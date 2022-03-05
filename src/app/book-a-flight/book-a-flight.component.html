@@ -1,0 +1,126 @@
+<div class="web">
+  <div class="book">
+    <p style="text-align: center ; font-size: 2rem;">Book a Flight</p>
+    <form [formGroup]="BookForm">
+      <div class="name">
+        <label>Full Name </label>
+        <span style="color: red;" *ngIf="BookForm.get('FullName')?.errors?.['required']">*</span><br>
+        <input type="text" formControlName="FullName">
+
+      </div>
+
+      <div class="From-To">
+        <div class="from">
+          <label>From </label>
+          <span style="color: red;" *ngIf="BookForm.get('From')?.errors?.['required']">*</span><br>
+          <select formControlName="From">
+            <option value=""></option>
+            <option value="Thailand">Thailand</option>
+            <option value="Switzerland">Switzerland</option>
+            <option value="Sweden">Sweden</option>
+            <option value="Germany">Germany</option>
+            <option value="Norway">Norway</option>
+          </select>
+        </div>
+        <div class="to">
+          <label>To </label>
+          <span style="color: red;" *ngIf="BookForm.get('To')?.errors?.['required']">*</span><br>
+          <select formControlName="To">
+            <option value=""></option>
+            <option value="Austria">Austria</option>
+            <option value="Norway">Norway</option>
+            <option value="Finland">Finland</option>
+            <option value="Iceland">Iceland</option>
+            <option value="Denmark">Denmark</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="Trip-Detail">
+        <div class="Type">
+          <label>Trip Type </label>
+          <span style="color: red;" *ngIf="BookForm.get('Trip_Type')?.errors?.['required']">*</span><br><br>
+          <input type="radio" formControlName="Trip_Type" value="One-way"> One-way
+          <input type="radio" formControlName="Trip_Type" value="Return"> Return
+        </div>
+
+        <div class="Depart">
+          <label>Departure </label>
+          <span style="color: red;" *ngIf="BookForm.get('Departure')?.errors?.['required']">*</span><br>
+          <mat-form-field appearance="fill">
+            <input matInput [matDatepicker]="picker1" formControlName="Departure" [min]="CurrentDate" >
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="Arrive">
+          <label>Arrival </label>
+          <span style="color: red;" *ngIf="BookForm.get('Arrival')?.errors?.['required']">*</span><br>
+          <mat-form-field appearance="fill">
+            <input matInput [matDatepicker]="picker2" formControlName="Arrival" [min]="CurrentDate">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="People">
+        <div class="Ad">
+          <label>Adults </label>
+          <span style="color: red;" *ngIf="BookForm.get('Adults')?.errors?.['required']">*</span><br>
+          <input type="number" formControlName="Adults" placeholder="0" min="0">
+        </div>
+
+        <div class="child">
+          <label>Children </label>
+          <span style="color: red;" *ngIf="BookForm.get('Children')?.errors?.['required']">*</span><br>
+          <input type="number" formControlName="Children" placeholder="0" min="0">
+        </div>
+
+        <div class="baby">
+          <label>Infants </label>
+          <span style="color: red;" *ngIf="BookForm.get('Infants')?.errors?.['required']">*</span><br>
+          <input type="number" formControlName="Infants" placeholder="0" min="0">
+        </div>
+      </div>
+
+
+      <div>
+        <button [disabled]="BookForm.invalid" (click)="Submit(BookForm)" style="font-size: 1.5rem;">Submit</button>
+      </div>
+
+
+    </form>
+  </div>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>FullName</th>
+      <th>From</th>
+      <th>To</th>
+      <th>Type</th>
+      <th>Departure</th>
+      <th>Arrival</th>
+      <th>Adults</th>
+      <th>Children</th>
+      <th>Infants</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let i of FlightDetail">
+      <td>{{i.fullName}}</td>
+      <td>{{i.from}}</td>
+      <td>{{i.to}}</td>
+      <td>{{i.type}}</td>
+      <td>{{ i.departure.getDate() + '/' + (i.departure.getMonth() + 1) + '/' + (i.departure.getFullYear()+543) }}</td>
+      <td>{{ i.arrival.getDate() + '/' + (i.arrival.getMonth() + 1) + '/' + (i.arrival.getFullYear()+543) }}</td>
+      <td>{{i.adults}}</td>
+      <td>{{i.children}}</td>
+      <td>{{i.infants}}</td>
+    </tr>
+  </tbody>
+</table>
